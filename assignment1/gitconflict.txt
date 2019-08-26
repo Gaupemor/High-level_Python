@@ -1,3 +1,3 @@
 Here's a line
-Hello from world A (original)!
+Hello world from A (original)!
 Here's another line

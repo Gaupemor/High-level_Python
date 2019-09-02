@@ -6,11 +6,14 @@ all_tracked_tasks=()
 current_start_time=""
 
 function track() {
+
 	#error case - no arguments passed
-	if [ $# = 0 ]; then
-		printf "track: This program requires an argument to be passed. See 'track --help'.\n"
+	if [ $# -eq 0 ]; then
+		echo "track: This program requires an argument to be passed. See 'track --help'."
+
 	#start [label]
 	elif [ $1 == 'start' ]; then
+		#LOGFILE
 		#Set variable if environmental variable is not set
 		if [ -z $LOGFILE ]; then
 			LOGFILE="track_log.txt"
@@ -19,76 +22,85 @@ function track() {
 			touch $LOGFILE
 		fi
 
+		#Attempt to add new task
 		#error case - other task is currently being tracked
-		if [ $task_is_running == true ]; then
-			printf "You may not track more than one task at a time.\nSee 'track status' to view your currently tracked task.\n"
+		if $task_is_running; then
+			echo "You may not track more than one task at a time. See 'track status' to view your currently tracked task."
 		#error case - no label given started task
-		elif [ $# = 1 ]; then
-			echo "You need to give each tracked task a label. See 'track --help'\n"
-		#(in this case, a label may have be more than one word)
+		elif [ $# -lt 2 ]; then
+			echo "Every tracked task must be assigned a label. See 'track --help'"
 		else
-			task_is_running=true
-
-			#Allow multiple word task label - all args after 'start' part of task label
+			#Allow multiple word task labels - all args after 'start' part of task label
 			start_arg=true;
-			for i in $@
-			do
-				:
-				if [ $start_arg == true ]; then
+			for i in $@; do
+				if $start_arg; then
 					start_arg=false
 				else
 					current_task+="$i "
 				fi
 			done
+			#--------
 
+			#get current time
 			current_time=$(date)
 			current_start_time=$(date +%s)
+
+			#manage global variables
+			task_is_running=true
 			all_tracked_tasks+=("$current_task: currently tracking")
 
+			#log in terminal and write to file
 			echo "Initialised tracking of task: $current_task"
 			echo "Start time: $current_time"
 			echo "START $current_time" >> $LOGFILE
 			echo "LABEL $current_task" >> $LOGFILE
 		fi
+
 	#stop
 	elif [ $1 == 'stop' ]; then
-		if [ $task_is_running == false ]; then
-			printf "No tasks are currently being tracked.\nSee 'track status' to view your currently tracked task.\n"
+		#error case - no task currently being tracked
+		if ! $task_is_running; then
+			echo "No tasks are currently being tracked. See 'track status' to view your currently tracked task."
 		else
+			#get current time
 			current_time=$(date)
 			current_end_time=$(date +%s)
+
+			#log in terminal and write to file
 			echo "Terminated tracking of task: $current_task"
 			echo "End time: $current_time"
 			echo "END   $current_time" >> $LOGFILE
 			echo "" >> $LOGFILE
 
-			#Replace 'currently tracking' with elapsed time (formatted w/date command)
+			#manage global variables
+			#replace 'currently tracking' with elapsed time (formatted w/date command)
 			unset 'all_tracked_tasks[${#all_tracked_tasks[@]} -1]'
-			all_tracked_tasks+=("$current_task $(date -d@$(($current_end_time - $current_start_time)) -u +%H:%M:%S)")
+			all_tracked_tasks+=("$current_task $(date -d@$(($current_end_time-$current_start_time)) -u +%H:%M:%S)")
 			current_start_time=""
 			task_is_running=false
 			current_task=""
 		fi
+
 	#status
 	elif [ $1 == 'status' ]; then
-		if [ $task_is_running == true ]; then
+		if $task_is_running; then
 			echo "Current task: $current_task"
 		else
 			echo "No tasks are currently being tracked. See 'track log' for completed tasks."
 		fi
+
 	#log
 	elif [ $1 == 'log' ] ; then
 		#in case no tasks to log
-		if [ ${#all_tracked_tasks[@]} == 0 ]; then
+		if [ ${#all_tracked_tasks[@]} -eq 0 ]; then
 			echo "No current or completed tasks to log."
 		else
 			#Iterated by indices - trouble w/ whitespaces in string when iterating by elements
-			for ((i = 0; i < ${#all_tracked_tasks[@]}; i++))
-			do
-				:
-				echo "$(($i+1))) ${all_tracked_tasks[$i]}"
+			for i in $(seq 0 $((${#all_tracked_tasks[@]} - 1))); do
+				echo "$(($i + 1))) ${all_tracked_tasks[$i]}"
 			done
 		fi
+
 	#help
 	elif [ $1 == '--help' ];
 	then
@@ -111,8 +123,9 @@ function track() {
 		echo "The name of this logfile is specified by the environmental variable LOGFILE."
 		echo "If no such variable is specified, a logfile named 'track_log.txt' will be created in the working directory."
 		echo ""
+
 	#error case - illegal argument(s)
 	else
-		printf "track: You tried to pass an illegal argument. See 'track --help'.\n"
+		echo "track: You tried to pass an illegal argument. See 'track --help'."
 	fi
 }

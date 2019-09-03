@@ -16,6 +16,7 @@ function climb() {
 		fi
 	fi
 
-	for num in $(seq 1 $i);
-	do cd ../; done;
+	for num in $(seq 1 $i); do
+		cd ../
+	done
 }

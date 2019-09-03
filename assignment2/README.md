@@ -1,4 +1,4 @@
-##README assignment2 selmafs
+## README assignment2 selmafs
 
 I chose to support multiple word labels.
 The label of a task will be assigned to all arguments after 'track start' collectively.

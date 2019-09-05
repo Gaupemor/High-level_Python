@@ -24,13 +24,13 @@ import sys, os
 
 for file in sys.argv[1:]:
     if os.path.isfile(file):
-        openFile = open(file, "r")
-        numOfLines = numOfWords = numOfChars = 0
+        open_file = open(file, "r")
+        num_of_lines = num_of_words = num_of_chars = 0
 
-        for line in openFile.readlines():
-            numOfLines += 1
-            numOfWords += len(line.replace("/n","").split())
-            numOfChars += len(line)
+        for line in open_file.readlines():
+            num_of_lines += 1
+            num_of_words += len(line.replace("/n","").split())
+            num_of_chars += len(line)
 
-        print(f"{numOfLines} {numOfWords} {numOfChars} {openFile.name}")
-        openFile.close()
+        print(f"{num_of_lines} {num_of_words} {num_of_chars} {open_file.name}")
+        open_file.close()

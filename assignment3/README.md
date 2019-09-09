@@ -12,6 +12,11 @@ $ source wc.py
 ```bash
 $ wc [filename(s)]
 ```
+OR
+Run by with python:
+```bash
+$ python wc.py [filename(s)]
+```
 
 More info about implementation and return format in the file docstring.
 

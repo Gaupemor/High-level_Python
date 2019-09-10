@@ -4,6 +4,11 @@ All programs require Python v. 3.6+ to enable f-string formatting.
 
 ### wc.py
 #### How to run
+Run as executable:
+```bash
+$ ./wc.py [filename(s)]
+```
+OR  
 1) Source the file:
 ```bash
 $ source wc.py
@@ -12,8 +17,8 @@ $ source wc.py
 ```bash
 $ wc [filename(s)]
 ```
-OR
-Run by with python:
+OR  
+Run with python:
 ```bash
 $ python wc.py [filename(s)]
 ```

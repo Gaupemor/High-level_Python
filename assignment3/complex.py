@@ -5,6 +5,7 @@
 
 import math
 
+
 class Complex:
     """ A Complex object represents a complex number.
 
@@ -23,7 +24,7 @@ class Complex:
         """ Calculates the conjugate of the complex number.
 
         Returns:
-            int || float: The conjugate of the Complex object that called the method.
+            int || float: The conjugate of the complex number.
 
         Example:
             >>> Complex(3, 2).conjugate()
@@ -35,7 +36,7 @@ class Complex:
         """ Calculates the modulus of the complex number.
 
         Returns:
-            int || float: The modulus of the Complex object that called the method.
+            int || float: The modulus of the complex number.
 
         Example:
             >>> Complex(3, 4).modulus()
@@ -179,7 +180,7 @@ class Complex:
         """ Inverts the complex number.
 
         Returns:
-            Complex: The inverted (negative) complex number. Inverts bothe the real and negative value.
+            Complex: The inverted (negative) complex number. Inverts both the real and negative value.
 
         Example:
             >>> print(-Complex(2, 2))

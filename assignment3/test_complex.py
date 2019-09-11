@@ -83,109 +83,187 @@ Naming conventions:
 import pytest
 from complex import Complex
 
-#__add__ (__radd__)
+# __add__ (__radd__)
+
 
 def test_add_positive_left_positive_right():
     assert Complex(1, 2) + Complex(2, 1) == Complex(3, 3)
+
+
 def test_add_positive_left_negative_right():
     assert Complex(-5, -5) + Complex(4, 6) == Complex(-1, 1)
+
+
 def test_add_negative_left_positive_right():
     assert Complex(5, 5) + Complex(-4, -6) == Complex(1, -1)
+
+
 def test_add_with_real_number_right():
     assert Complex(1, 1) + 1 == Complex(2, 1)
+
+
 def test_add_with_real_number_left():
     assert 1 + Complex(1, 1) == Complex(2, 1)
+
+
 def test_add_with_complex_number_right():
     assert Complex(3, 2) + (3 + 2j) == Complex(6, 4)
+
+
 def test_add_with_complex_number_left():
     assert (3 - 2j) + Complex(1, 1) == Complex(4, -1)
 
-#__sub__ (__rsub__)
+
+# __sub__ (__rsub__)
+
 
 def test_sub_positive_left_positive_right():
     assert Complex(5, 5) - Complex(3, 2) == Complex(2, 3)
+
+
 def test_sub_positive_left_negative_right():
     assert Complex(5, 5) - Complex(-4, -6) == Complex(9, 11)
+
+
 def test_sub_negative_left_positive_right():
     assert Complex(5, 5) - Complex(4, 6) == Complex(1, -1)
+
+
 def test_sub_with_real_number_right():
     assert Complex(1, 1) - 1 == Complex(0, 1)
+
+
 def test_sub_with_real_number_left():
     assert 1 - Complex(1, 1) == Complex(0, -1)
+
+
 def test_sub_with_complex_number_right():
     assert Complex(4, 2) - (2 + 4j) == Complex(2, -2)
-def test_sub_with_complex_number_left():
-    assert (5 - 3j) - Complex (2, 1) == Complex(3, -4)
 
-#__mul__ (__rmul__)
+
+def test_sub_with_complex_number_left():
+    assert (5 - 3j) - Complex(2, 1) == Complex(3, -4)
+
+# __mul__ (__rmul__)
+
 
 def test_mul_positive_left_positive_right():
-    assert Complex(2,2) * Complex(5, 2) == Complex(10, 4)
+    assert Complex(2, 2) * Complex(5, 2) == Complex(10, 4)
+
+
 def test_mul_positive_left_negative_right():
-    assert Complex (2, 2) * Complex (-1, -2) == Complex(-2, -4)
+    assert Complex(2, 2) * Complex(-1, -2) == Complex(-2, -4)
+
+
 def test_mul_negative_left_postive_right():
     assert Complex(-1, -4) * Complex(5, 2) == Complex(-5, -8)
+
+
 def test_mul_with_real_number_right():
     assert Complex(3, 2) * 3 == Complex(9, 2)
+
+
 def test_mul_with_real_number_left():
     assert 3 * Complex(3, 2) == Complex(9, 2)
+
+
 def test_mul_with_complex_number_right():
     assert Complex(2, 3) * (2 + 1j) == Complex(4, 3)
+
+
 def test_mul_with_complex_number_left():
     assert (4 - 2j) * Complex(5, 6) == Complex(20, -12)
 
-#conjugate
+# conjugate
+
 
 def test_conjugate_positive_real_positive_imag():
     assert Complex(3, 2).conjugate() == 1
+
+
 def test_conjugate_positive_real_negative_imag():
     assert Complex(3, -2).conjugate() == 5
+
+
 def test_conjugate_negative_real_positive_imag():
     assert Complex(-3, 2).conjugate() == -5
+
+
 def test_conjugate_negative_real_negative_imag():
     assert Complex(-3, -2).conjugate() == -1
 
-#modulus
+# modulus
+
 
 def test_modulus_positive_real_positive_imag():
     assert Complex(3, 4).modulus() == 5
+
+
 def test_modulus_positive_real_negative_imag():
     assert Complex(3, -4).modulus() == 5
+
+
 def test_modulus_negative_real_positive_imag():
     assert Complex(-3, 4).modulus() == 5
+
+
 def test_modulus_negative_real_negative_imag():
     assert Complex(-3, -4).modulus() == 5
 
-#__eq__
+# __eq__
+
 
 def test_eq_positive_real_positive_imag():
     assert Complex(1, 1) == Complex(1, 1)
+
+
 def test_eq_zero_real_zero_imag():
-    assert Complex(0, 0) == Complex(0,0)
+    assert Complex(0, 0) == Complex(0, 0)
+
+
 def test_eq_negative_real_negative_imag():
     assert Complex(-1, -1) == Complex(-1, -1)
+
+
 def test_eq_with_complex_number_right_of_eq():
     assert Complex(2, 4) == (2 + 4j)
+
+
 def test_eq_with_complex_number_left_of_eq():
-    assert (2 -3j) == Complex(2, -3)
+    assert (2 - 3j) == Complex(2, -3)
+
+
 def test_eq_with_real_number_right_of_eq():
     assert Complex(4, 0) == 4
+
+
 def test_eq_with_real_number_left_of_eq():
     assert -4 == Complex(-4, 0)
+
+
 def test_eq_positive_real_positive_imag_fail():
     with pytest.raises(Exception):
         assert Complex(1, 1) == Complex(2, 2)
+
+
 def test_eq_positive_left_of_eq_negative_right_of_eq_fail():
     with pytest.raises(Exception):
-        assert Complex(1, 1) == Complex(-1 , -1)
+        assert Complex(1, 1) == Complex(-1, -1)
 
-#__neg__
+# __neg__
+
 
 def test_neg_positive_real_positive_imag():
     assert -Complex(2, 3) == Complex(-2, -3)
+
+
 def test_neg_positive_real_negative_imag():
     assert -Complex(2, -3) == Complex(-2, 3)
+
+
 def test_neg_negative_real_positive_imag():
     assert -Complex(-2, 3) == Complex(2, -3)
+
+
 def test_neg_negative_real_negative_imag():
     assert -Complex(-2, -3) == Complex(2, 3)

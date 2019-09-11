@@ -20,7 +20,8 @@
         2 25 112 file2.txt
 """
 
-import sys, os
+import sys
+import os
 
 for file in sys.argv[1:]:
     if os.path.isfile(file):
@@ -29,7 +30,7 @@ for file in sys.argv[1:]:
 
         for line in open_file.readlines():
             num_of_lines += 1
-            num_of_words += len(line.replace("/n","").split())
+            num_of_words += len(line.replace("/n", "").split())
             num_of_chars += len(line)
 
         print(f"{num_of_lines} {num_of_words} {num_of_chars} {open_file.name}")

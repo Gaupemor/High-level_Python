@@ -19,16 +19,18 @@ Examples:
 For more information on usage, see the help text using the '--help' flag.
 
 Dependencies:
+    cv2
+
     Local:
-        blur_pkg
         blur_1
         blur_2
         blur_3
 """
 
+import cv2
 from argparse import ArgumentParser
 import blur_1, blur_2, blur_3
-import blur_pkg as b
+from blur_decorators import validimageIOfiles
 
 #list of modules for blurring: index of modules[] = index of module.choices[]
 modules = [None, blur_1, blur_2, blur_3]
@@ -48,9 +50,32 @@ parser.add_argument("-m", "--module",
 #apply and get arguments
 args = parser.parse_args()
 
+
+@validimageIOfiles
+def _blur_image(srcPath, dstPath, blur_module):
+    """ Private method that reads image from file, blurs it, and writes to file.
+
+    Args:
+        srcPath (str): The path name for the image to blur.
+        dstPath (str, optional): The path name to write the blurred image to.
+    """
+    #read source image (as float numbers)
+    src = cv2.imread(srcPath).astype("float")
+
+    #blur with the given module
+    dst = blur_module.blur(src)
+
+    #if destination path is given, write blurred image to file
+    if dstPath is not None:
+        cv2.imwrite(dstPath, dst)
+
+    #return blurred image as 3d array of unsigned integers (parsed in blur_2)
+    return dst
+
+
 #error handling and checking validity of source and destination file in blur_modules
 #if not valid, ValueError is thrown by the parser
 try:
-    b.blur_image(args.src, args.dest)
+    _blur_image(args.src, args.dest, modules[args.module])
 except ValueError as v:
     parser.error(v)

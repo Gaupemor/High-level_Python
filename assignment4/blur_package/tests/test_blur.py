@@ -7,20 +7,13 @@ Dependencies:
     pytest
     numpy
     cv2
-
-    Local:
-        blur_pkg
-        blur_1
-        blur_2
-        blur_3
 """
 
 import os
 import pytest
 import numpy as np
 import cv2
-import blur_pkg as b
-import blur_1, blur_2, blur_3
+import blur_package as b
 
 #CONSTANTS
 
@@ -151,74 +144,3 @@ def test_blur_pkg_correct_pixel_value(tmp_path):
 
     #actual pixel value equals expected pixel value
     assert actual_pixel_value == expected_pixel_value
-
-
-
-#ADDITIONAL TESTS
-#Tests each module {blur_1, blur_2, blur_3} individually
-
-def _blur_module_correct_pixel_value(blur_module):
-    """ Private method that determines if a blur_module returns the correct pixel value.
-
-    Args:
-        blur_module (blur_1 || blur_2 || blur_3): The blur module used to blur the picture
-
-    Returns:
-        bool:
-            True: In case actual pixel value is the same as the expected pixel value
-            False: Otherwise
-    """
-
-    #Arrange
-
-    #set random seed
-    _set_seed()
-
-    #generate predictable random 3D image array
-    gen_img = np.random.uniform(low=1, high=255, size=(IMG_SIZE, IMG_SIZE, 3))
-
-    #blur image
-    blurred_image = blur_module.blur(gen_img)
-
-    #pad generated image
-    gen_img = np.pad(gen_img, pad_width=1, mode='edge')
-
-    #select predictable random pixel
-    h = np.random.choice(blurred_image.shape[0])
-    w = np.random.choice(blurred_image.shape[1])
-    c = np.random.choice(blurred_image.shape[2])
-
-    #Act
-
-    #calculate actual and expected blur result for random pixel
-    #(takes index shift from padding into account)
-    actual_pixel_value = blurred_image[h, w, c]
-    expected_pixel_value = (gen_img[h+1, w+1, c+1] +
-    gen_img[h, w+1, c+1] + gen_img[h+2, w+1, c+1] +
-    gen_img[h+1, w, c+1] + gen_img[h+1, w+2, c+1] +
-    gen_img[h, w, c+1]   + gen_img[h, w+2, c+1] +
-    gen_img[h+2, w, c+1] + gen_img[h+2, w+2, c+1]) / 9
-    expected_pixel_value = expected_pixel_value.astype("uint8")
-
-    #Assert
-
-    #actual pixel value equals expected pixel value
-    return actual_pixel_value == expected_pixel_value
-
-def test_blur_1_correct_pixel_value():
-    """ Asserts that a predictable random pixel has the expected colour value after blurring
-    for module blur_1.
-    """
-    assert _blur_module_correct_pixel_value(blur_1)
-
-def test_blur_2_correct_pixel_value():
-    """ Asserts that a predictable random pixel has the expected colour value after blurring
-    for module blur_2.
-    """
-    assert _blur_module_correct_pixel_value(blur_2)
-
-def test_blur_3_correct_pixel_value():
-    """ Asserts that a predictable random pixel has the expected colour value after blurring
-    for module blur_3.
-    """
-    assert _blur_module_correct_pixel_value(blur_3)

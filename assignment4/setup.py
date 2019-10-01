@@ -19,7 +19,8 @@ setuptools.setup(
     install_requires=[
         'numpy',
         'numba',
-        'opencv-python'
+        'opencv-python',
+        'pytest'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

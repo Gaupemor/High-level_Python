@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: blur-pkg
+Version: 1.0
+Summary: IN3110-19 mandatory assignment 4 package
+Home-page: https://github.uio.no/IN3110/IN3110-selmafs/tree/master/assignment4
+Author: selmafs
+Author-email: selmafs@student.matnat.uio.no
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: Free For Educational Use
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

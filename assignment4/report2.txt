@@ -1,0 +1,39 @@
+Report2 - Comparing pure python and numpy
+
+PREFACE
+
+  I generated the image using numpy, generating a 3d integer array representing an image.
+  The image is randomly generated each time, but the random seed is set so the same image is generated.
+  The array contains values from 1 to 255, and is 1000 pixels high and wide, and has 3 channels (1000*1000*3).
+  I timed the modules using cProfile.
+
+
+  I used this script:
+  ```
+  np.random.seed(0)
+  gen_img = np.random.uniform(low=1, high=255, size=(1000, 1000, 3))
+
+  pr = cProfile.Profile()
+  res = pr.run("blur_[number of module].blur(gen_img)")
+  res.print_stats()
+  ```
+
+RESULTS
+  Out of 10 runs
+
+  Format:
+    total time (time of inner calculation method - actual calculation of blur)
+
+  blur_1:
+    least: 11.348 (_calc(): 10.793)
+    greatest: 17.594 (_calc(): 17.312)
+
+  blur_2:
+    least: 0.462 (_calc(): 0.239)
+    greatest: 0.537 (_calc(): 0.276)
+
+CALCULATION
+  least: numpy is 24.563 times faster than pure python
+    (45.159 if only counting _calc())
+  greatest: numpy is 32.764 times faster than pure python
+    (62.725 if only counting _calc())

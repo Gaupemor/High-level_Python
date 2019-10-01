@@ -8,8 +8,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='blur-package-selmafs',
-    version='0.1',
+    name='blur_pkg',
+    version='1.0',
     #script containing blur_image
     #scripts=['blur_pkg.py'],
     author="selmafs",

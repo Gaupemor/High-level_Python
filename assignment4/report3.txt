@@ -1,0 +1,32 @@
+Report3 - Comparing numpy and python w/ numba
+
+RESULTS
+  Out of 10 runs
+
+  Format:
+    total time (time of inner calculation method - actual calculation of blur)
+
+  blur_3:
+    least: 2.782 (_calc(1.599)  -> method that is actually sped up with jit)
+    greatest: 4.060 (_calc(1.728) -> method that is actually sped up with jit)
+
+CALCULATION
+  least:
+    numpy is 6.022 times faster than numba
+      (6.690 if only counting _calc())
+    numba is 4.079 times faster than pure python
+      (6.750 if only counting _calc())
+  greatest:
+      numpy is 7.561 times faster than numba
+        (6.260 if only counting _calc())
+      numba is 4.333 times faster than pure python
+        (10.019 if only counting _calc())
+
+PROS/CONS
+  Using numba over numpy
+
+  In this case, calculating with numpy arrays is faster than speeding up python calculations using numba.
+  Using numba might also require you to rewrite parts of your code to make it C-interpretable.
+  Numpy arrays also take up less memory space.
+  However, in certain cases, numba might be able to optimize out temporaries an do loop unrolling,
+  which numpy is not capable of.

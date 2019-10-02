@@ -13,9 +13,11 @@ import cv2
 import blur_2 as b
 from blur_decorators import validimageIOfiles
 
+
 @validimageIOfiles
 def blur_faces(srcPath, dstPath=None):
-    """ Blurs front-facing faces recognized by the Haar cascade facial recognition algorithm,
+    """ Blurs front-facing faces recognized
+     by the Haar cascade facial recognition algorithm,
     and displays the result.
 
     Uses the decorator 'validimageIOfiles' from 'blur_decorators'
@@ -31,7 +33,8 @@ def blur_faces(srcPath, dstPath=None):
         """ Private method searching for faces in image using Haar cascade.
 
         Returns:
-            (int, int, int, int)[]: array containing coordinates for the detected faces.
+            (int, int, int, int)[]:
+                array containing coordinates for the detected faces.
         """
         return faceCascade.detectMultiScale(
             image,
@@ -40,29 +43,31 @@ def blur_faces(srcPath, dstPath=None):
             minSize=(30, 30)
         )
 
-    #find faces
+    # find faces
     faces = _faces()
 
-    #print the number of faces found in the image by the face finder to console
+    # print the number of faces found in the image
+    # by the face finder to console
     print(f"Found {len(faces)} faces.")
 
-    #continue blurring until no faces in picture are recognizable (as faces)
-    while len(faces) is not 0:
+    # continue blurring until no faces in picture are recognizable (as faces)
+    while len(faces) != 0:
         for(x, y, w, h) in faces:
-            #gets subsection containing face
+            # gets subsection containing face
             this_face = image[y:y+h, x:x+w]
-            #blur subsection
+            # blur subsection
             this_face = b.blur(this_face)
-            #replace subsection of the original image with the blurred subsection
+            # replace subsection of the original image
+            # with the blurred subsection
             image[y:y+h, x:x+w] = this_face
 
-        #attempt to find faces in the blurred image
+        # attempt to find faces in the blurred image
         faces = _faces()
 
-    #if destination path is given, write blurred image result to file
+    # if destination path is given, write blurred image result to file
     if dstPath is not None:
         cv2.imwrite(dstPath, image)
 
-    #display result
+    # display result
     cv2.imshow("Result", image)
     cv2.waitKey(0)

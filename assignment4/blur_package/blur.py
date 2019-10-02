@@ -33,22 +33,27 @@ from argparse import ArgumentParser
 import blur_1, blur_2, blur_3
 from blur_decorators import validimageIOfiles
 
-#list of modules for blurring: index of modules[] = index of module.choices[]
+# list of modules for blurring: index of modules[] = index of module.choices[]
 modules = [None, blur_1, blur_2, blur_3]
 
-#parser
-parser = ArgumentParser(description="image blurrer (by 3x3 pixel kernel average)")
+# parser
+parser = ArgumentParser(
+    description="image blurrer (by 3x3 pixel kernel average)")
 
-#add arguments
+# add arguments
 parser.add_argument("src",
-    help="path of image source file", metavar="source_file")
+                    help="path of image source file", metavar="source_file")
 parser.add_argument("dest",
-    help="path of image destination file", metavar="destination_file")
+                    help="path of image destination file",
+                    metavar="destination_file")
 parser.add_argument("-m", "--module",
-    type=int, help="choose implementation 1 (python), 2 (numpy) or 3 (python w/ numba) - set to 2 by default",
-    choices=range(1, len(modules)), default=2)
+                    type=int,
+                    help="choose implementation " +
+                    "1 (python), 2 (numpy) or 3 (python w/ numba) " +
+                    "- set to 2 by default",
+                    choices=range(1, len(modules)), default=2)
 
-#apply and get arguments
+# apply and get arguments
 args = parser.parse_args()
 
 
@@ -60,22 +65,22 @@ def _blur_image(srcPath, dstPath, blur_module):
         srcPath (str): The path name for the image to blur.
         dstPath (str, optional): The path name to write the blurred image to.
     """
-    #read source image (as float numbers)
+    # read source image (as float numbers)
     src = cv2.imread(srcPath).astype("float")
 
-    #blur with the given module
+    # blur with the given module
     dst = blur_module.blur(src)
 
-    #if destination path is given, write blurred image to file
+    # if destination path is given, write blurred image to file
     if dstPath is not None:
         cv2.imwrite(dstPath, dst)
 
-    #return blurred image as 3d array of unsigned integers (parsed in blur_2)
+    # return blurred image as 3d array of unsigned integers (parsed in blur_2)
     return dst
 
 
-#error handling and checking validity of source and destination file in blur_modules
-#if not valid, ValueError is thrown by the parser
+# error handling and checking validity input/output image files
+# if not valid, ValueError is thrown by the parser
 try:
     _blur_image(args.src, args.dest, modules[args.module])
 except ValueError as v:

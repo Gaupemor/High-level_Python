@@ -80,6 +80,7 @@ examples:
 >>> blur_faces.blur_faces("img.jpg")
 >>> blur_faces.blur_faces("img.jpg", "out.jpg")
 ```
+```blur_faces``` uses around 60-90 seconds w/ ```beatles.jpg```
 
 #### ADDITIONAL FILES/DIRECTORIES
 ```

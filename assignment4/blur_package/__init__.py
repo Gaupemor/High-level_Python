@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" 4.6: Init file for the module 'blur_package' containing the 'blur_image' method.
+""" 4.6: 'blur_package.blur_image' - blurs a given image by neighbour pixel averaging.
 """
 
 name = "blur_package"

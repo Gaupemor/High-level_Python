@@ -22,6 +22,7 @@ Dependencies:
     cv2
 
     Local:
+        blur_decorators
         blur_1
         blur_2
         blur_3

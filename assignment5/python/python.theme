@@ -1,0 +1,14 @@
+comment:              0;90
+import:               0;35
+function_definition:  0;35
+class_definition:     0;35
+string:               0;32
+special:              0;33
+variable_assignment:  0;33
+decorator:            0;33
+try_except:           0;35
+for_loop:             0;35
+while_loop:           0;35
+if_statement:         0;35
+return:               0;35
+operator:             0;35

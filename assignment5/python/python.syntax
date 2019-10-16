@@ -1,0 +1,20 @@
+"#.*(?:$|\n)": comment
+"'(.*?)'": string
+""(.*?)"": string
+"(^| )(import|from) ": import
+"def": function_definition
+"class": class_definition
+"(^| |{|[)(True|False|None)( |}|]|$)": special
+"": variable_assignment
+"(^| )@.*(?:$|\n)": decorator
+"": try_except
+"(^| )for ": for_loop
+"": while_loop
+"": if_statement
+"(^| )return( |$)": return
+"=": operator
+"\+": operator
+"-": operator
+"<": operator
+">": operator
+"(^| )(is|not|as) ": operator

@@ -32,11 +32,12 @@ def _apply():
     # open original file, modified file, and output file
     with open(args.original, 'r') as original, open(args.modified, 'r') as modified, open("diff_output.txt", 'w') as output:
         
-        modLines = []
+        # keep accumulated modified lines
+        accumulated_lines = []
         # read line from original and modified file
         line = original.readline()
         modLine = modified.readline()
-        i = 0
+        
         while line:
             # to account for EOF cases
             # (case original and modified strings are identical except for one containing a newline)
@@ -46,42 +47,50 @@ def _apply():
             
             # if no more lines present in modified (take into account blank line)
             if modLine != '' and not modLine:
+                # assert that original line has been deleted
                 output.write(f"- {line}\n")
                 line = original.readline()
-            # if not modified, add 0 in front of line
+                
+            # if not modified
             elif line == modLine:
-                # if 'leftover' modLines - lines have been added
-                if modLines:
-                    for m in modLines:
+                # if there are 'leftover' accumulated lines - lines have been added
+                if accumulated_lines:
+                    for m in accumulated_lines:
                         output.write(f"+ {m}\n")
-                    modLines = []
+                    accumulated_lines = []
+                # write non-modified line
                 output.write(f"0 {line}\n")
                 line = original.readline()
                 modLine = modified.readline()
                 
-            #if line is in accumulated modified lines
-            elif line in modLines:
-                j = 0
-                while modLines[j] != line:
-                    m = modLines[j]
+            #if current line is in accumulated modified lines
+            elif line in accumulated_lines:
+                i = 0
+                # add accumulated lines up until current line
+                while accumulated_lines[i] != line:
+                    m = accumulated_lines[i]
                     output.write(f"+ {m}\n")
-                    j += 1
+                    i += 1
+                # add non-modified line
                 output.write(f"0 {line}\n")
-                for k in range(0, j):
-                    modLines.pop(0)
-                modLines.pop(0)
+                # remove added lines from accumulated lines
+                for k in range(0, i):
+                    accumulated_lines.pop(0)
+                accumulated_lines.pop(0)
                 line = original.readline()
                 
-            # OTHER MODIFICATIONS
+            # else determine that line has been deleted
             else:
                 output.write(f"- {line}\n")
+                # read new lines and add current modified line to accumulated lines
                 line = original.readline()
-                modLines.append(modLine)
+                accumulated_lines.append(modLine)
                 modLine = modified.readline()
                 
-        # if more added lines present in modified file
+        # if more added lines present in modified file after done with original
         while modLine:
-            for m in modLines:
+            # add accumulated lines and the modified line
+            for m in accumulated_lines:
                 output.write(f"+ {m}\n")
             output.write(f"+ {modLine}")
             modLine = modified.readline()            

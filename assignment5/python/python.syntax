@@ -1,21 +1,21 @@
-"(^| )(import|from) ": import
-"(^| )def ": function_definition
-"(^| )class ": class_definition
-"(^| |\{|\[)(True|False|None)( |\}|\]|$)": special
-"(^| )@.*(?:$|\n)": decorator
-"^(try:|except |except:)": try_except
-"(^| )for ": for_loop
-"(^| )while ": while_loop
-"^(if |elif |else:)": if_statement
-"(^| )(return|continue|pass|break)( |$)": return
+"(^|\s)(import|from)\s": import
+"(^|\s)def\s": function_definition
+"(^|\s)class\s": class_definition
+"(^|\s|\{|\[)(True|False|None)(\s|\}|\]|$)": special
+"(^|\s)@.*(?:$|\n)": decorator
+"^(try:|except\s|except:)": try_except
+"(^|\s)for\s": for_loop
+"(^|\s)while\s": while_loop
+"^(if\s|elif\s|else:)": if_statement
+"(^|\s)(return|continue|pass|break)(\s|$)": return
 "=": operator
 "\+": operator
 "-": operator
 "<": operator
 ">": operator
 "!": operator
-"(^| )(is|not|as|in)( )": operator
-" (and|or) ": operator
+"(^|\s)(is|not|as|in)\s": operator
+"\s(and|or)\s": operator
 "'(.*?)'": string
 ""(.*?)"": string
 "#.*(?:$|\n)": comment

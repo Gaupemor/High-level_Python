@@ -134,8 +134,8 @@ def print_highlight(source_file, syntax, theme, print_only_matches=False):
             if comment_line:
                 # find colour escape code using regex
                 colour_regex = re.compile(r'\033\[(.*?)m')
-                result = colour_regex.search(comment_line[i:])
-                i = 1
+                i = 3
+                result = colour_regex.search(comment_line[3:])
                 # for each colour escape code within comment,
                 # remove escape code and update comment line to print
                 while result:

@@ -1,2 +1,4 @@
 __pycache__/
 coloring_example.py
+.gitignore
+diff_output.txt

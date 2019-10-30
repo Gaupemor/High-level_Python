@@ -15,6 +15,7 @@
 ">": operator
 "!": operator
 "(^| )(is|not|as|in)( )": operator
+" (and|or) ": operator
 "'(.*?)'": string
 ""(.*?)"": string
 "#.*(?:$|\n)": comment

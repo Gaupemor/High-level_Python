@@ -32,6 +32,7 @@ def _apply():
     # open original file, modified file, and output file
     with open(args.original, 'r') as original, open(args.modified, 'r') as modified, open("diff_output.txt", 'w') as output:
         
+        modLines = []
         # read line from original and modified file
         line = original.readline()
         modLine = modified.readline()
@@ -43,35 +44,45 @@ def _apply():
             if modLine:
                 modLine = modLine.rstrip()
             
-            # if no more lines present in modified
-            if not modLine:
+            # if no more lines present in modified (take into account blank line)
+            if modLine != '' and not modLine:
                 output.write(f"- {line}\n")
                 line = original.readline()
             # if not modified, add 0 in front of line
             elif line == modLine:
+                # if 'leftover' modLines - lines have been added
+                if modLines:
+                    for m in modLines:
+                        output.write(f"+ {m}\n")
+                    modLines = []
                 output.write(f"0 {line}\n")
                 line = original.readline()
                 modLine = modified.readline()
                 
+            #if line is in accumulated modified lines
+            elif line in modLines:
+                j = 0
+                while modLines[j] != line:
+                    m = modLines[j]
+                    output.write(f"+ {m}\n")
+                    j += 1
+                output.write(f"0 {line}\n")
+                for k in range(0, j):
+                    modLines.pop(0)
+                modLines.pop(0)
+                line = original.readline()
+                
             # OTHER MODIFICATIONS
             else:
-                if i == 0:
-                    output.write(f"- {line}\n")
-                    line = original.readline()
-                    i += 1
-                else:
-                    ## TODO: handle cases i less than or greater than 0
-                    print("something unexpected happened!")
-                    print(f"original line: {line}")
-                    print(f"modified line: {modLine}")
-                    sys.exit(0)
-                #not modified 0 before line
-                #added + before line
-                #deleted - before line
-                #modified - deletion of org line, addition of mod line
+                output.write(f"- {line}\n")
+                line = original.readline()
+                modLines.append(modLine)
+                modLine = modified.readline()
                 
         # if more added lines present in modified file
         while modLine:
+            for m in modLines:
+                output.write(f"+ {m}\n")
             output.write(f"+ {modLine}")
             modLine = modified.readline()            
     

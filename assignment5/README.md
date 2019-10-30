@@ -59,7 +59,7 @@ and relies on the local module highlighter to avoid duplicate code.
   
 More help using ```$ python grep.py -h```.  
   
-'demo' file used: coloring_example.py  
+'demo' file used in directory grep: demo_grep.py (same as coloring_example.py) 
   
 How to run:
 ```bash
@@ -68,8 +68,8 @@ $ python grep.py [--highlight|-hl] [soruce code file] [sequence of regex]
 
 Example runs (from base assigment directory):
 ```bash
-$ python grep.py coloring_example.py a
-$ python --highlight grep.py coloring_example.py a b c
+$ python grep.py grep/demo_grep.py a
+$ python --highlight grep.py grep/demo_grep.py a b c
 ```
 Output of first example (non-highlighted):  
 ```python

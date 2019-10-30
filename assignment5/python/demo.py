@@ -1,14 +1,20 @@
-import re from s
+import this from that
 # This is a "comment" True
 a "string" is True
 True False None #comment at end of string
 a += {True}
 0 is 0
-@upper
-def aa():
-    def f():
-        return True
-    return f
+
+class this:
+    def a():
+        def b():
+            return True
+        return b
+
+@decorateor
+def c():
+    return
+
 ' single quote string with whitespaces ' + 'plus a break'
 
 for all in this:
@@ -19,8 +25,12 @@ while this:
 
 if this:
     False
+elif that:
+    True
+else:
+    raise Exception()
     
 try:
-    print("")
+    c()
 except Exception as e:
     print("")

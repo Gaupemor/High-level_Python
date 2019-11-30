@@ -46,5 +46,3 @@ def make_probability_scatterplot(feature_1, feature_2):
     #plt.show(block=True)
 
     return plt, training_score, validation_score
-
-make_probability_scatterplot('insulin', 'glucose');

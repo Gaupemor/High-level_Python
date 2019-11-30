@@ -43,7 +43,7 @@ def make_probability_scatterplot(feature_1, feature_2):
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
 
-    plt.show(block=True)
+    #plt.show(block=True)
 
     return plt, training_score, validation_score
 

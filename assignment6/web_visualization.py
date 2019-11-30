@@ -1,22 +1,23 @@
 from flask import Flask
-from flask import request
+import visualize
+import io
+from flask import Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+"""
+Flask web app displaying a scatter plot using the visualize module.
+"""
 
 app = Flask(__name__)
 
-@app.route('/handle_login', methods=['POST'])
-def handle_login():
+@app.route("/")
+def index():
+    plt, training_score, validation_score = visualize.make_probability_scatterplot("insulin", "glucose");
+    output = io.BytesIO()
+    canvas = FigureCanvas(plt.gcf()).print_png(output)
+    canvas.draw()
+    return Response(output.getvalue(), mimetype='image/png')
 
-    assert request.method == 'POST'   # Check that we are really in a POST request
 
-    # Acces the form data:
-    username = request.form["username"]
-    password = request.form["password"]
-
-    if username == "simon" and password == "safe":
-        return "You are logged in Simon"
-    else:
-        error = "Invalid credentials"
-        return render_template("login.html", error=error)
-
-if __name__ == "main":
+if __name__ == "__main__":
     app.run()

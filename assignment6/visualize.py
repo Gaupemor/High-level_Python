@@ -3,49 +3,48 @@ import data
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn import neighbors, datasets
-from resources import resources
-#pip install python-resources
 
+"""
+"""
 
 def make_probability_scatterplot(feature_1, feature_2):
-    trained_classifier = fitting.fit(include_features=[feature_1, feature_2])
+    """
+    6.3: Creates a scatter plot of diabetes data, displaying areas of predicted negative/positive result.
+
+    Args:
+        feature_1 (string): The first feature to plot by
+        feature_2 (string): The second feature to plot by
+
+    Returns:
+        plt: the scatter plot
+        float: the accuracy score on the training set
+        float: the accuracy score on the validation set
+    """
+    trained_classifier, training_score, validation_score = fitting.fit('svc', include_features=[feature_1, feature_2])
     plt = data.create_scatter_plot(feature_1, feature_2);
 
     X = data.data_frame[[feature_1, feature_2]].values
     y = data.data_frame['diabetes'].values
-    h = .02  # step size in the mesh
+    step = 0.5
 
-    print(resources.getrlimit())
-    print("got here")
-    exit()
-
-    # Plot the decision boundary. For that, we will assign a color to each
-    # point in the mesh [x_min, x_max]x[y_min, y_max].
+    # Mesh
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                         np.arange(y_min, y_max, h))
-    print("past mesh");
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, step),
+                         np.arange(y_min, y_max, step))
     x_r = xx.ravel()
-    print("x ravel")
     y_r = yy.ravel()
-    print("y ravel")
     r = np.c_[x_r, y_r]
-    print("past ravel")
     Z = trained_classifier.predict(r)
-    print("past predict")
 
-    # Put the result into a color plot
     Z = Z.reshape(xx.shape)
-    plt.figure()
-    plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.coolwarm)
 
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
-    print("past plt")
 
+    plt.show(block=True)
 
-    #add subplots to scatter plot
-    plt.show()
+    return plt, training_score, validation_score
 
 make_probability_scatterplot('insulin', 'glucose');

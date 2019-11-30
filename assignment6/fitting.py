@@ -6,6 +6,10 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 
+"""
+Module to create a trained classifier for diabetes.cvs using sklearn.
+"""
+
 def fit(classifier='mlp', include_features=None, exclude_features=None):
     """
     6.2: Creates a trained classifier from the data module using sklearn.
@@ -21,6 +25,8 @@ def fit(classifier='mlp', include_features=None, exclude_features=None):
 
     Returns:
         Classifier: the trained classifier
+        float: the accuracy score on the training set
+        float: the accuracy score on the validation set
     """
     #data.create_scatter_plot("insulin", "glucose")
 
@@ -54,18 +60,13 @@ def fit(classifier='mlp', include_features=None, exclude_features=None):
     trained_classifier = c.fit(fitting_set.drop('diabetes', axis=1), fitting_set['diabetes'])
 
 
-#    prediction = trained_classifier.predict(fitted_validation_set.drop('diabetes', axis=1))
-#    print(classifier + ":" + accuracy_score(
-#        y_true=fitted_validation_set['diabetes'].values,
-#        y_pred=prediction))
+    prediction = trained_classifier.predict(fitting_set.drop('diabetes', axis=1))
+    training_score = accuracy_score(
+         y_true=fitting_set['diabetes'].values,
+         y_pred=prediction)
+    prediction = trained_classifier.predict(fitted_validation_set.drop('diabetes', axis=1))
+    validation_score = accuracy_score(
+         y_true=fitted_validation_set['diabetes'].values,
+         y_pred=prediction)
 
-    #print(trained_classifier.predict(data.validation_set.drop('diabetes', axis=1))[0])
-    #print(data.validation_set['diabetes'].iloc[0])
-
-    # ALSO RETURN ACCURACY FOR TRAINING AND VALIDATION SET
-    return trained_classifier
-
-
-#fit('mlp')
-#fit('neighbors')
-#fit('svc')
+    return trained_classifier, training_score, validation_score

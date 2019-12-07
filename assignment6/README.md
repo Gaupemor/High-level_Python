@@ -1,11 +1,35 @@
-## info
-data.py & fitting.py OK.  
-Error when running visualize.py.  
-web_visualization.py not completed.  
-6.5 & 6.6 not implemented.  
+## How to run the scripts
 
-## run scripts
-data.py, fitting.py & visualize.py: import to other script as modules  
-(See docstrings for more info)  
-web_visualization.py: run in terminal '$ python web_visualization.py'  
-(IP specified in terminal output)  
+## data.py
+```
+Run with python data.py
+You will be presented with a text menu
+Choose the features you want to visualize
+If ran as a script, it returns a plot
+```
+
+## fitting.py
+```
+Run with python fitting.py
+Follow the text menu like mentioned
+If ran as a script, returns the prediction scores
+```
+## visualize.py
+```
+Run with visualize.py
+Follow the text menu
+If ran as a script, shows plot
+Otherwise, returns the the matplotlib object, training score, validation score
+
+Note: The plotting does not work. I was not able to make it work without making
+      substantial changes to the code, so I refrained from doing so.
+```
+
+##web_visualisation.py
+```
+Run with python web_visualisation.py
+Visit localhost:5000 or 127.0.0.1:5000
+Follow the interactive menus
+
+Note: Does not display the plot, because visualize.py does not work.
+```

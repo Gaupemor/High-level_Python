@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="theme.css">
+
+</head>
+<body>
+
+    <form action="selection" method="POST">
+
+    <h3 id="first">Select first feature</h3>
+    <select id ="fSelect" name='first'>
+  <option value="pregnant">pregnant</option>
+  <option value="glucose">glucose</option>
+  <option value="pressure">pressure</option>
+  <option value="triceps">triceps</option>
+  <option value="insulin">insulin</option>
+  <option value="mass">mass</option>
+  <option value="pedigree">pedigree</option>
+  <option value="age">age</option>
+
+    </select>
+
+    <h3 id="second">Select second feature</h3>
+    <select id ="sSelect" name="second">
+  <option value="pregnant">pregnant</option>
+  <option value="glucose">glucose</option>
+  <option value="pressure">pressure</option>
+  <option value="triceps">triceps</option>
+  <option value="insulin">insulin</option>
+  <option value="mass">mass</option>
+  <option value="pedigree">pedigree</option>
+  <option value="age">age</option>
+
+    </select>
+
+    <h3 id="third">Select classifier</h3>
+    <select id ="tSelect" name="third">
+  <option value="mlp">mlp</option>
+  <option value="neighbors">neighbors</option>
+  <option value="svc">svc</option>
+
+    </select>
+    
+    
+    <input id="button" type="submit" value="Generate plot">
+    </form>
+
+
+
+
+</body>
+</html>

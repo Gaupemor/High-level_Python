@@ -1,6 +1,4 @@
 import data
-import sklearn
-import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
@@ -70,3 +68,17 @@ def fit(classifier='mlp', include_features=None, exclude_features=None):
          y_pred=prediction)
 
     return trained_classifier, training_score, validation_score
+
+if __name__ == "__main__":
+    print('Choose two unique features to train with')
+    print('------------')
+    for a in data.data_frame.columns:
+        print(a)
+    print('------------')
+    a = input('\nfirst feature: \n>')
+    b = input('\nsecond feature: \n>')
+    print('\nChoose classifier\n--------')
+    print('mlp\nneighbors\nsvc\n--------')
+    c = input('\n>')
+    d = fit(c, include_features=[a, b])
+    print('Training score: ', d[1], '\nValidation score: ', d[2])

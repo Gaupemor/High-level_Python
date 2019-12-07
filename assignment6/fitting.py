@@ -72,7 +72,7 @@ def fit(classifier='mlp', include_features=None, exclude_features=None):
     return trained_classifier, training_score, validation_score
 
 if __name__ == "__main__":
-    print('Choose two unique features to visualize')
+    print('Choose two unique features to train with')
     print('------------')
     for a in data.data_frame.columns:
         print(a)

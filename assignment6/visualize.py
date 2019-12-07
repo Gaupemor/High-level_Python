@@ -7,7 +7,7 @@ from sklearn import neighbors, datasets
 """
 """
 
-def make_probability_scatterplot(feature_1, feature_2):
+def visualize(feature_1, feature_2, classifier):
     """
     6.3: Creates a scatter plot of diabetes data, displaying areas of predicted negative/positive result.
 
@@ -20,7 +20,8 @@ def make_probability_scatterplot(feature_1, feature_2):
         float: the accuracy score on the training set
         float: the accuracy score on the validation set
     """
-    trained_classifier, training_score, validation_score = fitting.fit('svc', include_features=[feature_1, feature_2])
+    
+    trained_classifier, training_score, validation_score = fitting.fit(classifier, include_features=[feature_1, feature_2])
     plt = data.create_scatter_plot(feature_1, feature_2);
 
     X = data.data_frame[[feature_1, feature_2]].values
@@ -42,7 +43,23 @@ def make_probability_scatterplot(feature_1, feature_2):
 
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
+    plt.scatter(X,X)
 
     #plt.show(block=True)
 
     return plt, training_score, validation_score
+
+
+if __name__ == "__main__":
+    print('Choose two unique features to visualize')
+    print('------------')
+    for a in data.data_frame.columns:
+        print(a)
+    print('------------')
+    a = input('\nfirst feature: \n>')
+    b = input('\nsecond feature: \n>')
+    print('\nChoose classifier\n--------')
+    print('mlp\nneighbors\nsvc\n--------')
+    c = input('\n>')
+    d = visualize(a,b,c)
+    d[0].show()

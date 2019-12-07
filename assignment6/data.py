@@ -47,11 +47,22 @@ def create_scatter_plot(feature_1, feature_2):
     Returns:
         plt: scatter plot
     """
-    if feature_1 not in data_frame.columns and feature_2 not in data_frame.columns:
-        raise Exception(f"'{d1}' and/or '{d2}' not present in data frame.");
+    if feature_1 not in data_frame.columns or feature_2 not in data_frame.columns:
+        raise Exception(f"'{feature_1}' and/or '{feature_2}' not present in data frame.");
 
     #label for axis label box
     ax_neg = data_frame[data_frame['diabetes'].str.contains("neg")].plot.scatter(x=feature_1, y=feature_2, c="Blue", label="negative")
     ax_pos = data_frame[data_frame['diabetes'].str.contains("pos")].plot.scatter(x=feature_1, y=feature_2, c="Red", label="positive", ax=ax_neg)
     plt.legend(title="Diabetes")
     return plt
+
+if __name__ == "__main__":
+    print('Choose two unique features to visualize')
+    print('------------')
+    for a in data_frame.columns:
+        print(a)
+    print('------------')
+    a = input('\nfirst feature: \n>')
+    b = input('\nsecond feature: \n>')
+    c = create_scatter_plot(a,b)
+    c.show()

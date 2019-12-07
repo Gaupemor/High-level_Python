@@ -1,0 +1,65 @@
+#cSelect {
+    position: fixed;
+    left: 650px;
+    top: 200px;
+}
+
+#classifier {
+    position: fixed;
+    left: 650px;
+    top: 160px;
+}
+
+#fSelect {
+    position: fixed;
+    left: 850px;
+    top: 200px;
+}
+
+#first {
+    position: fixed;
+    left: 850px;
+    top: 160px;
+}
+
+#sSelect {
+    position: fixed;
+    left: 1050px;
+    top: 200px;
+}
+#tSelect {
+    position: fixed;
+    left: 1250px;
+    top: 200px;
+}
+
+#second {
+    position: fixed;
+    left: 1050px;
+    top: 160px;
+}
+#third {
+    position: fixed;
+    left: 1250px;
+    top: 160px;
+}
+
+#button {
+    position: fixed;
+    left: 850px;
+    top:400px;
+}
+
+#pText {
+    position: fixed;
+    top: 270px;
+    left: 850px;
+}
+
+#iText {
+    position: fixed;
+    top:320px;
+    left:850px;
+}
+
+

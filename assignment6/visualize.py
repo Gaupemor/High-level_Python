@@ -1,8 +1,7 @@
 import fitting
 import data
 import numpy as np
-from sklearn.metrics import confusion_matrix
-from sklearn import neighbors, datasets
+
 
 """
 """

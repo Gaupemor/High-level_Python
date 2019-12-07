@@ -18,6 +18,8 @@ If ran as a script, returns the prediction scores
 ```
 Run with visualize.py
 Follow the text menu
+If ran as a script, shows plot
+Otherwise, returns the the matplotlib object, training score, validation score
 
 Note: The plotting does not work. I was not able to make it work without making
       substantial changes to the code, so I refrained from doing so.

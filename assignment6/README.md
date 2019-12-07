@@ -5,7 +5,7 @@
 Run with python data.py
 You will be presented with a text menu
 Choose the features you want to visualize
-If run as a script, it returns a plot
+If ran as a script, it returns a plot
 ```
 
 ## fitting.py
